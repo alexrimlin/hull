@@ -3,9 +3,17 @@
 ---
 {{- end }}
 {{- range $domain, $data := .Values.templates }}
+{{- if kindIs "string" $data.template }}
+{{- $template := $data.template -}}
+{{- range $name, $item := $data.items }}
+---
+{{ tpl $template (set (set $item "domain" $domain) "name" $name) }}
+{{- end }}
+{{- else }}
 {{- $template := $data.template | toYaml -}}
 {{- range $name, $item := $data.items }}
 ---
 {{ tpl $template (set (set $item "domain" $domain) "name" $name) }}
+{{- end }}
 {{- end }}
 {{- end }}

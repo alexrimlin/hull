@@ -7,13 +7,13 @@
 {{- $template := $data.template -}}
 {{- range $name, $item := $data.items }}
 ---
-{{ tpl $template (set (set $item "domain" $domain) "name" $name) }}
+{{ tpl $template (set $item "name" $name) }}
 {{- end }}
 {{- else }}
 {{- $template := $data.template | toYaml -}}
 {{- range $name, $item := $data.items }}
 ---
-{{ tpl $template (set (set $item "domain" $domain) "name" $name) }}
+{{ tpl $template (set $item "name" $name) }}
 {{- end }}
 {{- end }}
 {{- end }}

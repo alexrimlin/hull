@@ -18,4 +18,4 @@
 {{- end }}
 {{- end }}
 ---
-{{ tpl .Values.template . }}
+{{ tpl (default "" .Values.template) . }}

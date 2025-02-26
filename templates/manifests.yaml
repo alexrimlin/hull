@@ -2,6 +2,7 @@
 {{- toYaml . | nindent 0 }}
 ---
 {{- end }}
+
 {{- range $domain, $data := .Values.templates }}
 {{- if kindIs "string" $data.template }}
 {{- $template := $data.template -}}
@@ -17,5 +18,9 @@
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{- $values := .Values -}}
+{{- range $name, $template := .Values.tpl }}
 ---
-{{ tpl (default "" .Values.template) . }}
+{{ tpl $template $values }}
+{{- end }}

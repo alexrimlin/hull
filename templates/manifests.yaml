@@ -23,7 +23,7 @@
 {{- range $name, $template := .Values.tpl }}
 ---
 {{- if not (kindIs "string" $template) }}
-{{- $template := $template | toYaml -}}
+{{- $template = $template | toYaml -}}
 {{- end }}
 {{ tpl $template $root }}
 {{- end }}

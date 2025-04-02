@@ -7,7 +7,7 @@
 {{- $helperKeys := keys (default dict .Values.tplHelpers) | sortAlpha }}
 {{- $helpers := "" }}
 {{- range $helperKeys }}
-  {{- $helpers = printf "%s\n---\n%s" $result (index $.Values.tplHelpers .) }}
+  {{- $helpers = printf "%s\n---\n%s" $helpers (index $.Values.tplHelpers .) }}
 {{- end }}
 
 {{- range $name, $template := .Values.tpl }}

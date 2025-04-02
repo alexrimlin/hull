@@ -1,15 +1,19 @@
+{{- $root := . -}}
 {{- range .Values.manifests }}
 {{- toYaml . | nindent 0 }}
 ---
 {{- end }}
 
-{{- $sortedKeys := keys .Values.tpl | sortAlpha }}
-{{- $root := . -}}
-{{- range $name := $sortedKeys }}
-{{- $template := get $root.Values.tpl $name }}
+{{- $helpeKkeys := keys .Values.tplHelpers | sortAlpha }}
+{{- $helpers := "" }}
+{{- range $helperKeys }}
+  {{- $helpers = printf "%s\n---\n%s" $result (index $.Values.tplHelpers .) }}
+{{- end }}
+
+{{- range $name, $template := .Values.tpl }}
 ---
 {{- if not (kindIs "string" $template) }}
 {{- $template = $template | toYaml -}}
 {{- end }}
-{{ tpl $template $root }}
+{{ tpl (printf "%s\n---\n%s" $helpers $template) $root }}
 {{- end }}

@@ -3,24 +3,10 @@
 ---
 {{- end }}
 
-{{- range $domain, $data := .Values.templates }}
-{{- if kindIs "string" $data.template }}
-{{- $template := $data.template -}}
-{{- range $name, $item := $data.items }}
----
-{{ tpl $template (set $item "name" $name) }}
-{{- end }}
-{{- else }}
-{{- $template := $data.template | toYaml -}}
-{{- range $name, $item := $data.items }}
----
-{{ tpl $template (set $item "name" $name) }}
-{{- end }}
-{{- end }}
-{{- end }}
-
+{{- $sortedKeys := keys .Values.tpl | sortAlpha }}
 {{- $root := . -}}
-{{- range $name, $template := .Values.tpl }}
+{{- range $name := $sortedKeys }}
+{{- $template := get .Values.tpl $name }}
 ---
 {{- if not (kindIs "string" $template) }}
 {{- $template = $template | toYaml -}}

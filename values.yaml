@@ -1,8 +1,1 @@
-hull:
-  objects:
-    serviceaccount:
-      default:
-        enabled: false
-  config:
-    general:
-      rbac: false
+{}
